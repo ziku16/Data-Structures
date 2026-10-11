@@ -43,16 +43,25 @@ Implemented doubly linked list operations using manual pointer manipulation with
 | `task2.cpp` | Search for two values and swap the actual nodes containing them without swapping their data       |
 | `task3.cpp` | Convert a singly linked list into a doubly linked list containing the same data                   |
 
-**Week 3 concepts include:**
+### Circular Linked Lists (Week 4 / Lab 4)
 
-* Doubly linked list node structure
-* `prev` and `next` pointer manipulation
-* Traversing a doubly linked list
-* Reversing a doubly linked list
-* Swapping nodes by changing links rather than values
-* Handling adjacent nodes and head-node swaps
-* Converting singly linked lists into doubly linked lists
-* Dynamic memory allocation
+Implemented circular singly linked list operations without STL containers.
+
+| **Task**    | **What it does**                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------------------- |
+| `task1.cpp` | Delete all nodes having even/odd numbered values while maintaining circle links                   |
+| `task2.cpp` | Solve the Josephus elimination problem using a circular linked list                               |
+| `task3.cpp` | Delete all even-positioned nodes (including the last node if at an even position)                |
+
+### Stacks (Week 5 / Lab 5)
+
+Implemented dynamic (linked-node) stack data structures and applications without STL containers.
+
+| **Task**    | **What it does**                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------------------- |
+| `task1.cpp` | Bracket balancing application with nesting priority enforcement (`[` > `{` > `(`)                |
+| `task2.cpp` | Infix to Postfix conversion using a custom dynamic stack and precedence/associativity rules       |
+| `task3.cpp` | Postfix expression numerical evaluation using a dynamic stack with variable bindings              |
 
 ---
 

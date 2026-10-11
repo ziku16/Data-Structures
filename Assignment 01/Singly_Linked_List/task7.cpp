@@ -29,7 +29,7 @@ Node* reverseSegment(Node* head, Node*& segmentTail) {
     return prev; // New head of reversed segment
 }
 
-// Function to reverse first half and second half separately
+// Function to reverse elements before middle and after middle
 void reverseHalves(Node*& head) {
     if (head == nullptr || head->next == nullptr) {
         return; // Nothing to reverse if list is empty or has 1 element
@@ -45,28 +45,49 @@ void reverseHalves(Node*& head) {
 
     int halfSize = totalBoxes / 2;
 
-    // Step 2: Traverse to the end of the first half
-    Node* firstHalfEnd = head;
-    for (int i = 1; i < halfSize; i++) {
-        firstHalfEnd = firstHalfEnd->next;
+    if (totalBoxes % 2 == 0) {
+        // EVEN length: Split into two equal halves
+        Node* firstHalfEnd = head;
+        for (int i = 1; i < halfSize; i++) {
+            firstHalfEnd = firstHalfEnd->next;
+        }
+
+        Node* secondHalfHead = firstHalfEnd->next;
+        firstHalfEnd->next = nullptr; // Terminate first half
+
+        Node* firstHalfTail = nullptr;
+        Node* newFirstHalfHead = reverseSegment(head, firstHalfTail);
+
+        Node* secondHalfTail = nullptr;
+        Node* newSecondHalfHead = reverseSegment(secondHalfHead, secondHalfTail);
+
+        firstHalfTail->next = newSecondHalfHead;
+        head = newFirstHalfHead;
+    } else {
+        // ODD length: Elements before mid are reversed, mid stays fixed, elements after mid are reversed
+        Node* firstHalfEnd = head;
+        for (int i = 1; i < halfSize; i++) {
+            firstHalfEnd = firstHalfEnd->next;
+        }
+
+        Node* midNode = firstHalfEnd->next;
+        firstHalfEnd->next = nullptr; // Terminate first half
+
+        Node* secondHalfHead = midNode->next;
+        midNode->next = nullptr; // Isolate mid node
+
+        Node* firstHalfTail = nullptr;
+        Node* newFirstHalfHead = reverseSegment(head, firstHalfTail);
+
+        Node* secondHalfTail = nullptr;
+        Node* newSecondHalfHead = reverseSegment(secondHalfHead, secondHalfTail);
+
+        // Connect: reversed first half -> midNode -> reversed second half
+        firstHalfTail->next = midNode;
+        midNode->next = newSecondHalfHead;
+
+        head = newFirstHalfHead;
     }
-
-    // Step 3: Split into two separate lists
-    Node* secondHalfHead = firstHalfEnd->next;
-    firstHalfEnd->next = nullptr; // Terminate first half
-
-    // Step 4: Reverse both halves in-place
-    Node* firstHalfTail = nullptr;
-    Node* newFirstHalfHead = reverseSegment(head, firstHalfTail);
-
-    Node* secondHalfTail = nullptr;
-    Node* newSecondHalfHead = reverseSegment(secondHalfHead, secondHalfTail);
-
-    // Step 5: Connect tail of reversed first half to head of reversed second half
-    firstHalfTail->next = newSecondHalfHead;
-
-    // Step 6: Update head of the overall list
-    head = newFirstHalfHead;
 }
 
 // Function to display boxes
@@ -107,19 +128,19 @@ int main() {
     Node* boxes = nullptr;
 
     // Populate boxes 1 through 8
-    for (int i = 1; i <= 8; i++) {
+    for (int i = 1; i <= 9; i++) {
         addBox(boxes, i);
     }
 
-    cout << "=== Original Warehouse Boxes Order ===" << endl;
+    cout << "=== Original Order ===" << endl;
+    cout << "Original: "; 
     displayBoxes(boxes);
 
     // Perform reversal of first half and second half separately
     reverseHalves(boxes);
 
-    cout << "\n=== Rearranged Warehouse Boxes Order ===" << endl;
-    cout << "Expected Output: 4 -> 3 -> 2 -> 1 -> 8 -> 7 -> 6 -> 5" << endl;
-    cout << "Actual Output:   ";
+    cout << "\n=== Rearranged Order ===" << endl;
+    cout << "Output: ";
     displayBoxes(boxes);
 
     freeList(boxes);
