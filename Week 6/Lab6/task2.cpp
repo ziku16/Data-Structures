@@ -18,7 +18,7 @@ private:
 
     Node* frontPtr;    // Pointer to the front element
     Node* rearPtr;     // Pointer to the rear element
-    size_t count;      // Total number of elements
+    size_t count;      // Total number of elementsImplement the Deque in linked list.
 
 public:
     // Default constructor
